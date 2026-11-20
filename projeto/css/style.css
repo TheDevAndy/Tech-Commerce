@@ -1,0 +1,107 @@
+/* Estilos complementares ao Tailwind CSS.
+   Paleta: violeta profundo #2e1065, violeta elétrico #7c3aed, ciano #22d3ee, lavanda #f5f3ff */
+
+html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+
+/* Foco visível para quem navega pelo teclado (acessibilidade) */
+:focus-visible { outline: 3px solid #22d3ee; outline-offset: 3px; }
+
+/* ---------- Botões (feedback visual: hover e clique) ---------- */
+.btn {
+  display: inline-block;
+  text-align: center;
+  border-radius: 9999px;
+  padding: .85rem 1.6rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease;
+}
+.btn:hover  { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(34, 211, 238, .4); }
+.btn:active { transform: translateY(0) scale(.96); box-shadow: none; }
+.btn-accent { background: #22d3ee; color: #2e1065; }
+.btn-accent:hover { background: #67e8f9; }
+
+/* Botões quadrados de ícone (tema, menu, setas do carrossel) */
+.icone-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(167, 139, 250, .5);
+  border-radius: 9999px;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color .15s ease, transform .15s ease;
+}
+.icone-btn:hover  { background: rgba(167, 139, 250, .25); }
+.icone-btn:active { transform: scale(.92); }
+.icone-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+/* ---------- Links do cabeçalho e rodapé ---------- */
+.nav-link { padding: .45rem .95rem; border-radius: 9999px; font-weight: 500; transition: background-color .15s ease; }
+.nav-link:hover { background: rgba(255, 255, 255, .14); }
+.menu-item { padding: .8rem 1rem; border-radius: 1rem; font-weight: 500; }
+.menu-item:hover { background: rgba(255, 255, 255, .12); }
+.rodape-link { text-decoration: underline; text-underline-offset: 3px; }
+.rodape-link:hover { color: #67e8f9; }
+
+/* ---------- Fundo de pontos (lembra uma placa de circuito) ---------- */
+.pontos {
+  background-image: radial-gradient(rgba(167, 139, 250, .35) 1.2px, transparent 1.2px);
+  background-size: 30px 30px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent);
+          mask-image: linear-gradient(to bottom, #000 40%, transparent);
+}
+
+/* ---------- Brilho ciano que segue o mouse (hero e cards de produto) ---------- */
+.spot { position: relative; }
+.spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(420px circle at var(--x, 70%) var(--y, 30%), rgba(34, 211, 238, .22), transparent 65%);
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+}
+.spot:hover::before, .hero::before { opacity: 1; }
+
+/* Logo gigante que flutua no hero */
+.flutuar { animation: flutuar 7s ease-in-out infinite; filter: drop-shadow(0 0 48px rgba(139, 92, 246, .7)); }
+@keyframes flutuar { 50% { transform: translateY(-20px) rotate(4deg); } }
+
+/* ---------- Faixa inclinada que rola ---------- */
+.faixa { display: flex; overflow: hidden; white-space: pre; transform: rotate(-2deg); }
+.faixa span { flex: none; display: flex; align-items: center; animation: rolar 30s linear infinite; }
+@keyframes rolar { to { transform: translateX(-100%); } }
+.faixa i {                       /* hexágono separador, igual ao da logo */
+  display: inline-block;
+  width: .6em;
+  height: .6em;
+  margin: 0 1.4rem;
+  background: #2e1065;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
+/* ---------- Cards de produto: inclinação 3D ---------- */
+.tilt { transition: transform .15s ease-out; will-change: transform; }
+
+/* ---------- Carrossel: quantos cards aparecem por tela ---------- */
+#trilho { transition: transform .5s ease; }
+.slide { flex: 0 0 100%; }                                      /* celular: 1 */
+@media (min-width: 640px)  { .slide { flex-basis: 50%; } }      /* tablet: 2 */
+@media (min-width: 1024px) { .slide { flex-basis: 33.3333%; } } /* desktop: 3 */
+
+/* ---------- Aviso ao comprar (aparece e some) ---------- */
+#aviso {
+  opacity: 0;
+  pointer-events: none;
+  margin-bottom: -8px;
+  transition: opacity .25s ease, margin .25s ease;
+}
+#aviso.visivel { opacity: 1; margin-bottom: 0; }
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
